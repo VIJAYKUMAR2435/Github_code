@@ -7,50 +7,44 @@ using namespace std;
 class Solution {
   public:
     vector<int> spirallyTraverse(vector<vector<int> > &matrix) {
-        // code here
-        int n=matrix.size();//row i
-        int m=matrix[0].size();//col j
-        int up=0;
-        int right=m-1;
-        int down=n-1;
-        int left=0;
-        int totcount=m*n;
-        int count=0;
-        vector<int>ans;
-        
-        
-        while(true)
-        {
-            for(int j=left;j<=right;j++)
-            {
-                ans.push_back(matrix[up][j]);
-                count++;
-            }
-            if(count==totcount)break;
-            up++;
-            for(int i=up;i<=down;i++)
-            {
-                ans.push_back(matrix[i][right]);
-                count++;
-            }
-            if(count==totcount)break;
-            right--;
-            for(int j=right;j>=left;j--)
-            {
-                ans.push_back(matrix[down][j]);
-                count++;
-            }
-            if(count==totcount)break;
-            down--;
-            for(int i=down;i>=up;i--)
-            {
-                ans.push_back(matrix[i][left]);
-                count++;
-            }
-            if(count==totcount)break;
-            left++;
-        }
-        return ans;
+       vector<int>result;
+          if(matrix.empty()||matrix[0].empty()){
+              return result;
+          }
+          int dir=0;
+          int top=0;
+          int bottom=matrix.size()-1;
+          int left=0;
+          int right=matrix[0].size()-1;
+          while(top<=bottom && left<=right){
+              if(dir==0){
+                  for(int i=left;i<=right;i++){
+                      result.push_back(matrix[top][i]);
+                  }
+                  top++;
+              }
+              else if(dir==1){
+                  for(int i=top;i<=bottom;i++){
+                      result.push_back(matrix[i][right]);
+                  }
+                  right--;
+              }
+              else if(dir==2){
+                  for(int i=right;i>=left;i--){
+                      result.push_back(matrix[bottom][i]);
+                  }
+                  bottom--;
+              }
+              else if(dir==3){
+                       for(int i=bottom;i>=top;i--){
+                           result.push_back(matrix[i][left]);
+                       }
+                       left++;
+              }
+              dir=(dir+1)%4;
+            
+          }
+          return result;
     }
 };
 
