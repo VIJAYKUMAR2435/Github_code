@@ -97,23 +97,49 @@ class Solution {
   public:
     vector <int> bottomView(Node *root) {
         // Your Code Here
-          vector<int>ans;
-        if(root==NULL) return  ans;
-        map<int,int>m;
-        queue<pair<int,Node*>>q;
-        q.push({0,root});
-        while(!q.empty()){
-            pair<int,Node*>temp=q.front();
-            q.pop();
-            int x=temp.first;
-            Node* node=temp.second;
-            m[x]=node->data;
-            if(node->left) q.push({x-1,node->left});
-            if(node->right) q.push({x+1,node->right});
-        }
-        for(auto i:m) ans.push_back(i.second);
-        return ans;
+          vector<int> res;
+    if (!root) {
+        return res;
     }
+
+    // Map to store the last node at each horizontal distance
+    map<int, int> hd_map;
+
+    // Queue to perform level-order traversal
+    // Each pair contains a node and its horizontal distance
+    queue<pair<Node*, int>> q;
+
+    q.push({root, 0});
+
+    while (!q.empty()) {
+        auto p = q.front();
+        q.pop();
+
+        Node* node = p.first;
+        int hd = p.second;
+
+        // Update the map with the current node's data at the given horizontal distance
+        hd_map[hd] = node->data;
+
+        // Push the left child with horizontal distance - 1
+        if (node->left) {
+            q.push({node->left, hd - 1});
+        }
+
+        // Push the right child with horizontal distance + 1
+        if (node->right) {
+            q.push({node->right, hd + 1});
+        }
+    }
+
+    // Extract the bottom view from the map (ordered by horizontal distance)
+    for (auto it : hd_map) {
+        res.push_back(it.second);
+    }
+
+    return res;
+         
+          }
 };
 
 //{ Driver Code Starts.
