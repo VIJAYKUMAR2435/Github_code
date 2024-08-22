@@ -9,42 +9,42 @@ using namespace std;
 
 class Solution{
 public:
-void solve(vector<vector<char>>&mat,int i,int j){
-    int n=mat.size();
-    int m=mat[0].size();
-    if(i<0||i>=n||j<0||j>=m||mat[i][j]!='O'){
+void solve(int n, int m, vector<vector<char>>& mat, int i, int j) {
+    if (i < 0 || j < 0 || i >= n || j >= m || mat[i][j] != 'O') {
         return;
     }
-    mat[i][j]='v';
-    solve(mat,i,j-1);
-    solve(mat,i,j+1);
-    solve(mat,i-1,j);
-    solve(mat,i+1,j);
+    mat[i][j] = 'v';
+    solve(n, m, mat, i - 1, j);
+    solve(n, m, mat, i + 1, j);
+    solve(n, m, mat, i, j - 1);
+    solve(n, m, mat, i, j + 1);
 }
-    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
-    {
-        // code here
-        for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            if(i==0 || j==0 || i==n-1 || j==m-1){
-                if(mat[i][j] == 'O'){
-                    solve(mat, i, j);
+
+vector<vector<char>> fill(int n, int m, vector<vector<char>> mat) {
+    // Check boundary rows and columns
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (i == 0 || j == 0 || i == n - 1 || j == m - 1) {
+                if (mat[i][j] == 'O') {
+                    solve(n, m, mat, i, j);
                 }
             }
         }
     }
-    
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            if(mat[i][j] == 'O'){
+
+    // Update the matrix
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (mat[i][j] == 'O') {
                 mat[i][j] = 'X';
-            } else if(mat[i][j] == 'v'){
+            } else if (mat[i][j] == 'v') {
                 mat[i][j] = 'O';
             }
         }
     }
-    
+
     return mat;
+
 
     }
 };
