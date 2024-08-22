@@ -130,7 +130,7 @@ struct Node
 //Function to return a list containing elements of left view of the binary tree.
 vector<int> leftView(Node *root)
 {
-   // Your code here
+   
    vector<int>res;
    if(!root){
        return res;
@@ -139,11 +139,11 @@ vector<int> leftView(Node *root)
    q.push(root);
    while(!q.empty()){
        int sz=q.size();
-     //  vector<int>v;
+    
        for(int i=0;i<sz;i++){
            Node*node=q.front();
            q.pop();
-          // The first node of each level is part of the left view
+          
             if (i == 0) {
                 res.push_back(node->data);
             }
