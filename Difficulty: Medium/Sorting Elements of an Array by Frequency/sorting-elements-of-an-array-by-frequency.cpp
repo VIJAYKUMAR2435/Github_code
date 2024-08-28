@@ -4,36 +4,47 @@ using namespace std;
 
 
 // } Driver Code Ends
+
+ bool  cmp(pair<int,int>a,pair<int,int>b){
+        if(a.second==b.second){
+            return a.first<b.first;
+        }
+        else{
+            return a.second>b.second;
+        }
+    }
 class Solution {
   public:
     // Complete this function
     // Function to sort the array according to frequency of elements.
-      static bool cmp(pair<int,int> a,pair<int,int> b){
-        if(a.second==b.second)
-        return a.first<b.first;
-        return a.second>b.second;
-    }
+    // bool  cmp(pair<int,int>a,pair<int,int>b){
+    //     if(a.second==b.second){
+    //         return a.first<b.first;
+    //     }
+    //     else{
+    //         return a.second>b.second;
+    //     }
+    // }
     vector<int> sortByFreq(vector<int>& arr) {
         // Your code here
-        unordered_map<int,int> b;
-        for(int i:arr){
-            b[i]++;   
+        int n=arr.size();
+        unordered_map<int,int>mp;
+        for(auto i:arr){
+            mp[i]++;
         }
-        vector<pair<int,int>> a;
-        for(int i:arr){
-            a.push_back({i,b[i]});
+        vector<pair<int,int>>v;
+        for(auto i:mp){
+            v.push_back({i.first,i.second});
         }
-        sort(a.begin(),a.end(),cmp);
-        vector<int> ans;
-        for(auto i:a){
-            ans.push_back(i.first);
+        sort(v.begin(),v.end(),cmp);
+        vector<int>ans;
+        for(int i=0;i<v.size();i++){
+            for(int j=0;j<v[i].second;j++){
+                ans.push_back(v[i].first);
+            }
         }
         return ans;
-        
     }
-    
-       
-    
 };
 
 //{ Driver Code Starts.
