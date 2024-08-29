@@ -47,43 +47,29 @@ struct Node {
 class Solution {
   public:
     // Function to find the length of a loop in the linked list.
-    // bool iscycle(struct Node*root){
-    //     if(!root){
-    //         return false;
-    //     }
-    //   Node*slow=root;
-    //   Node*fast=root;
-    //   while(fast!=NULL&&fast->next!=NULL){
-    //       slow=slow->next;
-    //       fast=fast->next->next;
-    //       if(slow==fast){
-    //           return true;
-    //       }
-    //   }
-    //   return false;
-    // }
-    int countNodesinLoop(struct Node *head) {
+    int countNodesinLoop(Node *head) {
         // Code here
-         Node *slow = head;
-    Node *fast = head;
-    while(fast!=NULL && fast->next!=NULL)
-    {
-        slow = slow->next;
-        fast = fast->next->next;
-        if(slow==fast)
-        break;
-    }
-    if(fast==NULL || fast->next==NULL)
-    return 0;
-    
-    int count =1;
-    slow = fast->next;
-    while(slow!=fast)
-    {
-        count++;
-        slow = slow->next;
-    }
-    return count;
+        Node*slow=head;
+        Node*fast=head;
+        //int c=0;
+        while(fast!=NULL&&fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(fast==slow){
+                break;
+            }
+          
+        }
+        if(fast==NULL||fast->next==NULL){
+                return 0;
+            }
+         slow=fast->next;
+            int c=1;
+            while(fast!=slow){
+                slow=slow->next;
+                c++;
+            }
+        return c;
     }
 };
 
