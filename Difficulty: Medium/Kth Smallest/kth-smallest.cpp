@@ -18,12 +18,11 @@ class Solution {
         priority_queue<int>maxh;
         for(int i=0;i<n;i++){
             maxh.push(arr[i]);
-           if(maxh.size()>k){
-               maxh.pop();
-           }
+            while(maxh.size()>k){
+                maxh.pop();
+            }
         }
         return maxh.top();
-        
     }
 };
 
